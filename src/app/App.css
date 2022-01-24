@@ -1,0 +1,11 @@
+.App {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  background-color: #f8f8f8;
+  position: fixed;
+  overflow: hidden;
+}
