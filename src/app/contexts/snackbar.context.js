@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -49,7 +48,12 @@ export function SnackbarProvider({ children }) {
   return (
     <SnackbarContext.Provider value={value}>
       {children}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
         <Alert severity={severity} onClose={handleClose} action={action}>
           {message}
         </Alert>

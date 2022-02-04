@@ -3,6 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Settings from "../settings";
 import Auth from "../auth";
 import NoRoute from "../no.route";
+import Menu from "../menu";
+import { MenuProvider } from "./contexts/menu.context";
+
 import {
   Canvas,
   TopBar,
@@ -33,6 +36,16 @@ function App() {
               element={
                 <PrivateRoute>
                   <Settings />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <MenuProvider>
+                    <Menu />
+                  </MenuProvider>
                 </PrivateRoute>
               }
             />
