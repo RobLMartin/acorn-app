@@ -11,5 +11,6 @@ const Container = styled.div`
   display: grid;
   grid-template-areas: ${({ isAuth = false }) =>
     isAuth ? '"app-bar canvas"' : '"canvas"'};
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: ${({ isAuth = false }) =>
+    isAuth ? "64px 1fr" : "1fr"};
 `;

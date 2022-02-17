@@ -1,5 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, storage, ref, uploadBytes, getDownloadURL } from "../firebase";
+import {
+  auth,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  collection,
+  addDoc,
+  default as db,
+} from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -23,10 +32,34 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
-  }
+  const signup = async (email, password, formData, logo) => {
+    const { restaurantName, streetAddress, city, state, zip } = formData;
+    let newDB = collection(db, "restaurantDetails");
+    const res = await createUserWithEmailAndPassword(auth, email, password);
 
+    addDoc(newDB, {
+      userId: res.user.uid,
+      restaurantName,
+      streetAddress,
+      city,
+      state,
+      zip,
+    });
+    if (logo) {
+      const fileRef = ref(storage, `/logo/${res.user.uid}.png`);
+
+      try {
+        await uploadBytes(fileRef, logo);
+        const photoURL = await getDownloadURL(fileRef);
+
+        await updateProfile(res.user, { photoURL: photoURL });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return res;
+  };
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
@@ -55,8 +88,8 @@ export function AuthProvider({ children }) {
       const photoURL = await getDownloadURL(fileRef);
 
       await updateProfile(currentUser, { photoURL: photoURL });
-    } catch {
-      console.log("error");
+    } catch (err) {
+      console.log(err);
     }
   }
 

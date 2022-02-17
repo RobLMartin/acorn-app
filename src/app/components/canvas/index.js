@@ -11,5 +11,5 @@ const Container = styled.div`
   grid-area: canvas;
   height: 100vh;
   padding: ${({ isAuth }) => (isAuth ? "1em" : 0)};
-  padding-right: 118px;
+  padding-right: ${({ isAuth }) => (isAuth ? "118px" : 0)};
 `;
