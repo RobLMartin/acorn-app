@@ -32,33 +32,50 @@ export default function Login() {
 
   return (
     <Container>
-      <SideBySide>
-        <Typography align="left" variant="h5">
-          Forgot Password?
-        </Typography>
-        {loading && <CircularProgress />}
-      </SideBySide>
-      <Typography align="left">
-        Enter your details to receive a reset link.
-      </Typography>
-      <TextField label="Email" type="email" required inputRef={emailRef} />
-      <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-        Reset Password
-      </Button>
-      <Typography align="center">
-        <StyledLink onClick={handleNavigateToLogin} underline="none">
-          Login
-        </StyledLink>
-      </Typography>
+      <LeftPanel>
+        <Content>
+          <SideBySide>
+            <Typography align="left" variant="h5">
+              Forgot Password?
+            </Typography>
+            {loading && <CircularProgress />}
+          </SideBySide>
+          <Typography align="left">
+            Enter your details to receive a reset link.
+          </Typography>
+          <TextField label="Email" type="email" required inputRef={emailRef} />
+          <Button variant="contained" onClick={handleSubmit} disabled={loading}>
+            Reset Password
+          </Button>
+          <Typography align="center">
+            <StyledLink onClick={handleNavigateToLogin} underline="none">
+              Login
+            </StyledLink>
+          </Typography>
+        </Content>
+      </LeftPanel>
     </Container>
   );
 }
 
-const Container = styled.div`
+const Content = styled.div`
   display: grid;
   gap: 2em;
   height: fit-content;
   width: 100%;
+`;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 700px 1fr;
+  height: 100%;
+`;
+
+const LeftPanel = styled.div`
+  background-color: white;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0 6em;
 `;
 
 const StyledLink = styled(Link)`

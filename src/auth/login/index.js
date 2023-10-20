@@ -45,57 +45,76 @@ export default function Login() {
 
   return (
     <Container>
-      <SideBySide>
-        <Typography align="left" variant="h5">
-          Sign In
-        </Typography>
-        {loading && <CircularProgress />}
-      </SideBySide>
-      <TextField label="Email" type="email" required inputRef={emailRef} />
-      <TextField
-        label="Password"
-        type={showPassword ? "text" : "password"}
-        required
-        inputRef={passwordRef}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                edge="end"
-              >
-                {!showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-        Login
-      </Button>
-      <Typography align="center">
-        <StyledLink onClick={handleNavigateToForgotPassword} underline="none">
-          Forgot password?
-        </StyledLink>
-      </Typography>
-      <Typography align="center">
-        Need an account?{" "}
-        <StyledLink onClick={handleNavigateToSignUp} underline="none">
-          Sign Up
-        </StyledLink>
-      </Typography>
+      <LeftPanel>
+        <Content>
+          <SideBySide>
+            <Typography align="left" variant="h5">
+              Sign In
+            </Typography>
+            {loading && <CircularProgress />}
+          </SideBySide>
+          <TextField label="Email" type="email" required inputRef={emailRef} />
+          <TextField
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            required
+            inputRef={passwordRef}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {!showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button variant="contained" onClick={handleSubmit} disabled={loading}>
+            Login
+          </Button>
+          <Typography align="center">
+            <StyledLink
+              onClick={handleNavigateToForgotPassword}
+              underline="none"
+            >
+              Forgot password?
+            </StyledLink>
+          </Typography>
+          <Typography align="center">
+            Need an account?{" "}
+            <StyledLink onClick={handleNavigateToSignUp} underline="none">
+              Sign Up
+            </StyledLink>
+          </Typography>
+        </Content>
+      </LeftPanel>
     </Container>
   );
 }
 
-const Container = styled.div`
+const Content = styled.div`
   display: grid;
   gap: 2em;
   height: fit-content;
   width: 100%;
 `;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 700px 1fr;
+  height: 100%;
+`;
 
+const LeftPanel = styled.div`
+  background-color: white;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0 6em;
+`;
 const StyledLink = styled(Link)`
   cursor: pointer;
 `;
